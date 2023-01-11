@@ -15,7 +15,7 @@ from sklearn.preprocessing import MinMaxScaler
 from scipy.stats import norm
 from pynmmso import Nmmso
 plt.rcParams.update({
-    "text.usetex": True,
+    # "text.usetex": True,
     "font.family": "sans-serif",
     "font.sans-serif": ["Computer Modern Serif"],
     "font.size":24})
