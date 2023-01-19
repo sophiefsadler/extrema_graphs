@@ -37,7 +37,7 @@ def intermediate_points_vectorised(p1, p2, nb_points=50):
 
 def extrema_search(funMax, funMin, number_of_fitness_evaluations=10000, radius_percentage=0.05,
                     do_plot=True, nb_points=5, do_scaling=False, do_sphere=False, nsph_points=100, 
-                   keep_percentage=0.9, seed=121283516, nmds=True):
+                   keep_percentage=0.9, seed=121283516, nmds=True, plot_save=True, plot_save_name=None):
     np.random.seed(seed)
     lb, ub = np.array(funMax.get_bounds())
     radius = radius_percentage * distance.euclidean(ub ,lb)
@@ -131,4 +131,6 @@ def extrema_search(funMax, funMin, number_of_fitness_evaluations=10000, radius_p
         sm._A = []
         cbar = plt.colorbar(sm)
         cbar.set_label("Fitness")
+        if plot_save:
+            plt.savefig(plot_save_name)
     return mds_new_data
