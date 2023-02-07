@@ -1,4 +1,4 @@
-# extremal_graphs
+# extrema_graphs
 
 All notebooks contain the name of the function in the title (as well as the number of dimensions). 
 
