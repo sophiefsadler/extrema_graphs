@@ -18,7 +18,9 @@ plt.rcParams.update({
     # "text.usetex": True,
     "font.family": "sans-serif",
     "font.sans-serif": ["Computer Modern Serif"],
-    "font.size":24})
+    "font.size":24,
+    "pdf.fonttype": 42,
+    "ps.fonttype": 42})
 plt.ion()
 
 def get_points(n_dim, n_samples=100, centre=np.zeros(2), radius=1):
@@ -57,7 +59,7 @@ def extrema_search(funMax, funMin, number_of_fitness_evaluations=10000, radius_p
     for mode_result in my_result:
         mins_found.append(mode_result.location)
         func_values_matching_optima.append(-mode_result.value)
-    optima = np.stack(mins_found + maxs_found, axis=0)
+    optima = np.stack(maxs_found + mins_found, axis=0)
     print("Done.")
     print("Augmenting data with edge nodes...")
     edges = []
@@ -124,7 +126,9 @@ def extrema_search(funMax, funMin, number_of_fitness_evaluations=10000, radius_p
         values = [func_val_map[node] for node in G.nodes()]
         fig, ax = plt.subplots()
         nodes = nx.draw(G, pos=pos, ax=ax, node_size=node_sizes, node_color=values)
-        # ax= plt.gca()
+        min_func = min(func_values_matching_optima)
+        global_minimum_nodes = [i for i,d in enumerate(func_values_matching_optima) if d==min_func]
+        nx.draw_networkx_nodes(G, pos=pos, ax=ax, node_color='r', node_size=500, nodelist=global_minimum_nodes)
         ax.collections[0].set_edgecolor("#000000")
         limits=plt.axis('on')
         sm = plt.cm.ScalarMappable(cmap=plt.cm.viridis, norm=plt.Normalize(vmin = np.min(values), vmax=np.max(values)))
